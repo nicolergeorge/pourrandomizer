@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acrylic Pouring Randomizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Acrylic Pouring Randomizer</h1>
+    <button onclick="randomizePour()">Randomize Pour</button>
+
+    <div id="output">
+        <p><strong>Technique:</strong> <span id="technique"></span></p>
+        <p><strong>Number of Colors:</strong> <span id="numColors"></span></p>
+        <p><strong>Colors:</strong> <span id="colors"></span></p>
+        <p><strong>Consistency:</strong> <span id="consistency"></span></p>
+        <p><strong>Base Color:</strong> <span id="baseColor"></span></p>
+        <p><strong>Wrecked Status:</strong> <span id="wrecked"></span></p>
+    </div>
+
+    <script>
+        const techniques = ["Dirty Pour", "Flip Cup", "Puddle Pour", "Swipe", "Dutch Pour", "String Pull", "Cloud Pour", "Ring Pour"];
+        const colors = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Black", "White", "Pink", "Teal", "Gold", "Silver"];
+        const consistencies = ["Thick", "Thin", "Watery", "Medium"];
+        const baseColors = ["White", "Black", "Gray", "Beige", "Blue", "Yellow"];
+        const wreckedOptions = ["Wrecked", "Not Wrecked"];
+
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function randomizePour() {
+            const technique = getRandomItem(techniques);
+            const numberOfColors = getRandomNumber(2, 5);
+            const consistency = getRandomItem(consistencies);
+            const baseColor = getRandomItem(baseColors);
+            const wrecked = getRandomItem(wreckedOptions); // Randomly select wrecked or not
+
+            const selectedColors = [];
+            while (selectedColors.length < numberOfColors) {
+                let color = getRandomItem(colors);
+                if (!selectedColors.includes(color)) {
+                    selectedColors.push(color);
+                }
+            }
+
+            document.getElementById('technique').textContent = technique;
+            document.getElementById('numColors').textContent = numberOfColors;
+            document.getElementById('colors').textContent = selectedColors.join(', ');
+            document.getElementById('consistency').textContent = consistency;
+            document.getElementById('baseColor').textContent = baseColor;
+            document.getElementById('wrecked').textContent = wrecked;
+        }
+
+    </script>
+</body>
+
+</html>
